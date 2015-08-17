@@ -1,0 +1,15 @@
+[Unit]
+Description=A network traffic probe similar to the UNIX top command
+Requires=network.target
+ConditionPathExists=/var/lib/ntop/ntop_pw.db
+After=syslog.target network.target
+
+[Service]
+Environment=LANG=C
+EnvironmentFile=/etc/conf.d/ntop
+ExecStart=/usr/bin/ntop $NTOP_ARGS
+Type=simple
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
